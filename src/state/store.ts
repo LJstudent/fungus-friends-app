@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+import mushroomSlice from './mushroom/mushroomSlice';
 
 export const store = configureStore({
   reducer: {
+    mushroom: mushroomSlice
   },
 });
 
