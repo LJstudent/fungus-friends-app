@@ -9,19 +9,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { Color } from "../models/enums/Color";
 import StyledDialog from "./styled/StyledDialog";
+import { Spots } from "../models/enums/Spots";
 
 interface IOuterProps {
     open: boolean;
     onClose: () => void;
+    filterChoice: number;
 }
 
 function FilterDialog(props: IOuterProps) {
-    const { open, onClose } = props;
+    const { open, onClose, filterChoice } = props;
     const mushroomsList = useSelector((state: RootState) => state.mushroom.mushroom);
     const [RadioValue, setRadioValue] = React.useState<number>(-1);
 
-
-    const uniqueColorList = mushroomsList.map(mushroom => mushroom.color).filter((v, i, a) => a.indexOf(v) === i);
 
     const handleChangeRadioGroup = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRadioValue(parseInt(event.target.value));
@@ -32,11 +32,10 @@ function FilterDialog(props: IOuterProps) {
         onClose();
     }
 
-    return (
-        <StyledDialog
-            open={open}
-            onClose={event => onClose()}
-            keepMounted>
+    function filterColor() {
+        const uniqueColorList = mushroomsList.map(mushroom => mushroom.color).filter((v, i, a) => a.indexOf(v) === i);
+
+        return (
             <FormControl className="FilterFormColor">
                 <FormLabel id="demo-radio-buttons-group-label">Color</FormLabel>
                 <RadioGroup
@@ -52,6 +51,38 @@ function FilterDialog(props: IOuterProps) {
                     ))}
                 </RadioGroup>
             </FormControl>
+        )
+    }
+
+    function filterSpots() {
+        const uniqueSpotsList = mushroomsList.map(mushroom => mushroom.spots).filter((v, i, a) => a.indexOf(v) === i);
+
+        return (
+            <FormControl className="FilterFormColor">
+                <FormLabel id="demo-radio-buttons-group-label">Spots</FormLabel>
+                <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    name="radio-buttons-group"
+                    onChange={event => handleChangeRadioGroup(event)}
+                >
+                    {uniqueSpotsList.map((mushroom) => (
+                        <FormControlLabel
+                            value={mushroom}
+                            control={<Radio />}
+                            label={Spots[mushroom]} />
+                    ))}
+                </RadioGroup>
+            </FormControl>
+        )
+    }
+
+    return (
+        <StyledDialog
+            open={open}
+            onClose={event => onClose()}
+            keepMounted>
+            {filterChoice === 0 && filterSpots()}
+            {filterChoice === 1 && filterColor()}
             <Button onClick={event => handleSubmit()} disabled={RadioValue === -1 && true}>Bevestigen</Button>
         </StyledDialog>
     )

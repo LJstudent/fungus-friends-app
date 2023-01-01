@@ -12,9 +12,11 @@ import FilterDialog from "./FilterDialog";
 
 function Actions() {
     const [ShowFilterDialog, setShowFilterDialog] = React.useState<boolean>(false);
+    const [FilterChoice, setFilterChoice] = React.useState<number>(-1);
 
-    const handleShowFilterDialog = () => {
+    const handleShowFilterDialog = (number: number) => {
         setShowFilterDialog(true);
+        setFilterChoice(number);
     };
 
     const handleShowFilterDialogClose = () => {
@@ -28,11 +30,11 @@ function Actions() {
             alignItems="center"
             spacing={2}
         >
-            <IconButton onClick={event => handleShowFilterDialog()}>
+            <IconButton onClick={event => handleShowFilterDialog(0)}>
                 <Avatar sx={{ bgcolor: deepOrange[500] }}>S</Avatar>
             </IconButton>
             <IconButton>
-                <Avatar onClick={event => handleShowFilterDialog()} sx={{ bgcolor: deepPurple[500] }}>C</Avatar>
+                <Avatar onClick={event => handleShowFilterDialog(1)} sx={{ bgcolor: deepPurple[500] }}>C</Avatar>
             </IconButton>
             <Divider orientation="vertical" flexItem />
             <IconButton>
@@ -44,7 +46,7 @@ function Actions() {
             <IconButton>
                 <EditIcon />
             </IconButton>
-            <FilterDialog open={ShowFilterDialog} onClose={handleShowFilterDialogClose} />
+            <FilterDialog open={ShowFilterDialog} onClose={handleShowFilterDialogClose} filterChoice={FilterChoice} />
         </Stack>
     )
 }
