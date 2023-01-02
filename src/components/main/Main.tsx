@@ -64,7 +64,7 @@ function Main() {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     {result.map((mushroom) => (
-                        <Marker eventHandlers={{ click: (e) => handleShowMushroomInfo(mushroom.id) }} position={mushroom.latlng}>
+                        <Marker key={mushroom.id} eventHandlers={{ click: (e) => handleShowMushroomInfo(mushroom.id) }} position={mushroom.latlng}>
                             <Popup>
                                 {mushroom.name}
                             </Popup>

@@ -18,7 +18,7 @@ function MushroomInfo(props: IOuterProps) {
             {mushroomsList.filter(mushroom => mushroom.id === mushroomId)
                 .map(mushroom => {
                     return (
-                        <div>
+                        <div key={mushroom.id}>
                             <p className="info">Name:  {mushroom.name}</p>
                             <p className="info">Spots: {Spots[mushroom.spots]}</p>
                             <CircleIcon sx={{ color: Color[mushroom.color], paddingLeft: '10px' }} />

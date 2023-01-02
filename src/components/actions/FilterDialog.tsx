@@ -32,10 +32,10 @@ function FilterDialog(props: IOuterProps) {
     };
 
     const handleSubmit = () => {
-        if(filterChoice === 0) {
+        if (filterChoice === 0) {
             dispatch(searchFilterSpots(RadioValue as Spots));
         }
-        if(filterChoice === 1) {
+        if (filterChoice === 1) {
             dispatch(searchFilterColor(RadioValue as Color));
         }
         onClose();
@@ -51,11 +51,12 @@ function FilterDialog(props: IOuterProps) {
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
                     onChange={event => handleChangeRadioGroup(event)}
+                    defaultValue={filterColorValue}
                 >
                     {uniqueColorList.map((mushroom) => (
                         <FormControlLabel
+                            key={mushroom}
                             value={mushroom}
-                            checked={(filterColorValue !== -1 as Color && filterColorValue === mushroom) && true }
                             control={<Radio sx={{ color: Color[mushroom], '&.Mui-checked': { color: Color[mushroom] } }} />}
                             label={Color[mushroom]} />
                     ))}
@@ -74,11 +75,12 @@ function FilterDialog(props: IOuterProps) {
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
                     onChange={event => handleChangeRadioGroup(event)}
+                    defaultValue={filterSpotsValue}
                 >
                     {uniqueSpotsList.map((mushroom) => (
                         <FormControlLabel
+                            key={mushroom}
                             value={mushroom}
-                            checked={(filterSpotsValue !== -1 as Spots && filterSpotsValue === mushroom) && true }
                             control={<Radio />}
                             label={Spots[mushroom]} />
                     ))}
