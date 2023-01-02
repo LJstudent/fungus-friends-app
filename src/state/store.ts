@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import filterSlice from './filter/filterSlice';
 import mushroomSlice from './mushroom/mushroomSlice';
 
 export const store = configureStore({
   reducer: {
-    mushroom: mushroomSlice
+    mushroom: mushroomSlice,
+    filter: filterSlice
   },
 });
 

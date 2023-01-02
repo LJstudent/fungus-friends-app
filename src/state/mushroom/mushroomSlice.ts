@@ -15,7 +15,7 @@ export const mushroomSlice = createSlice({
   initialState,
   reducers: {
   },
-})
+});
 
 // Action creators are generated for each case reducer function
 // export const {} = mushroomSlice.actions

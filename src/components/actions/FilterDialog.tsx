@@ -5,11 +5,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { Color } from "../models/enums/Color";
 import StyledDialog from "./styled/StyledDialog";
 import { Spots } from "../models/enums/Spots";
+import { searchFilterColor, searchFilterSpots } from "../../state/filter/filterSlice";
 
 interface IOuterProps {
     open: boolean;
@@ -19,6 +20,7 @@ interface IOuterProps {
 
 function FilterDialog(props: IOuterProps) {
     const { open, onClose, filterChoice } = props;
+    const dispatch = useDispatch();
     const mushroomsList = useSelector((state: RootState) => state.mushroom.mushroom);
     const [RadioValue, setRadioValue] = React.useState<number>(-1);
 
@@ -28,7 +30,12 @@ function FilterDialog(props: IOuterProps) {
     };
 
     const handleSubmit = () => {
-        alert(RadioValue);
+        if(filterChoice === 0) {
+            dispatch(searchFilterSpots(RadioValue as Spots));
+        }
+        if(filterChoice === 1) {
+            dispatch(searchFilterColor(RadioValue as Color));
+        }
         onClose();
     }
 
