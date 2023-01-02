@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 
 const StyledMain = styled(Stack)(({ theme }) => ({
     marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
 
     '.mapDiv': {
         borderRadius: '10px',
