@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import Avatar from "@mui/material/Avatar";
 import deepOrange from "@mui/material/colors/deepOrange";
 import deepPurple from "@mui/material/colors/deepPurple";
@@ -8,9 +9,19 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import React from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { cancelRecord, newRecord } from '../../state/mushroom/mushroomSlice';
+import { RootState } from '../../state/store';
 import FilterDialog from "./FilterDialog";
 
-function Actions() {
+interface IOuterProps {
+    mushroomId: number;
+}
+
+function Actions(props: IOuterProps) {
+    const { mushroomId } = props;
+    const dispatch = useDispatch();
+    const newRecordBoolean = useSelector((state: RootState) => state.mushroom.newRecord);
     const [ShowFilterDialog, setShowFilterDialog] = React.useState<boolean>(false);
     const [FilterChoice, setFilterChoice] = React.useState<number>(-1);
 
@@ -23,6 +34,16 @@ function Actions() {
         setShowFilterDialog(false);
     };
 
+    const handleNewMushroom = () => {
+        dispatch(newRecord());
+    };
+
+    const handleCancelMushroom = () => {
+        dispatch(cancelRecord());
+    };
+
+    const disableWithoutMushroomId = mushroomId === -1 || newRecordBoolean ? true : false;
+
     return (
         <Stack
             direction="row"
@@ -33,17 +54,23 @@ function Actions() {
             <IconButton onClick={event => handleShowFilterDialog(0)}>
                 <Avatar sx={{ bgcolor: deepOrange[500] }}>S</Avatar>
             </IconButton>
-            <IconButton>
-                <Avatar onClick={event => handleShowFilterDialog(1)} sx={{ bgcolor: deepPurple[500] }}>C</Avatar>
+            <IconButton onClick={event => handleShowFilterDialog(1)}>
+                <Avatar sx={{ bgcolor: deepPurple[500] }}>C</Avatar>
             </IconButton>
             <Divider orientation="vertical" flexItem />
-            <IconButton>
-                <AddIcon />
-            </IconButton>
-            <IconButton>
+            {!newRecordBoolean ?
+                <IconButton onClick={event => handleNewMushroom()}>
+                    <AddIcon />
+                </IconButton>
+                :
+                <IconButton onClick={event => handleCancelMushroom()}>
+                    <CloseIcon />
+                </IconButton>
+            }
+            <IconButton disabled={disableWithoutMushroomId}>
                 <DeleteIcon />
             </IconButton>
-            <IconButton>
+            <IconButton disabled={disableWithoutMushroomId}>
                 <EditIcon />
             </IconButton>
             <FilterDialog open={ShowFilterDialog} onClose={handleShowFilterDialogClose} filterChoice={FilterChoice} />

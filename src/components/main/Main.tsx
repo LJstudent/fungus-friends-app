@@ -73,7 +73,7 @@ function Main() {
 
                 </MapContainer>
             </Box>
-            <Actions />
+            <Actions mushroomId={MushroomId} />
             <MushroomInfo mushroomId={MushroomId} />
         </StyledMain>
     );

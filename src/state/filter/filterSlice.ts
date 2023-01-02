@@ -6,12 +6,12 @@ import { Color } from '../../components/models/enums/Color'
 export interface filterState {
   valueSpots: Spots;
   valueColor: Color;
-}
+};
 
 const initialState: filterState = {
   valueSpots: -1,
   valueColor: -1,
-}
+};
 
 export const filterSlice = createSlice({
   name: 'filter',
@@ -25,13 +25,12 @@ export const filterSlice = createSlice({
       state.valueSpots = action.payload
     },
     searchFilterColor: (state, action: PayloadAction<Color>) => {
-        state.valueColor = action.payload
-      },
-
+      state.valueColor = action.payload
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 export const { clearFilters, searchFilterSpots, searchFilterColor } = filterSlice.actions;
 
-export default filterSlice.reducer
+export default filterSlice.reducer;
