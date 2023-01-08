@@ -65,6 +65,8 @@ function MushroomInfo(props: IOuterProps) {
             setErrorMessage('No latitude or longitude filled in');
         } else if (!isInt(parseInt(lat)) || !isInt(parseInt(lng))) {
             setErrorMessage('No numbers filled in for latitude or longitude');
+        } else if (!(parseFloat(lat) > 50.77083 && parseFloat(lat) < 53.35917) || !(parseFloat(lng) > 3.57361 && parseFloat(lng) < 7.10833)) {
+            setErrorMessage('Latitude or longitude not in range of The Netherlands');
         } else if (filterSpots === -1 as Spots) {
             setErrorMessage('No spots chosen');
         } else if (filterColor === -1 as Color) {
