@@ -1,7 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from "@mui/material/Avatar";
 import deepOrange from "@mui/material/colors/deepOrange";
 import deepPurple from "@mui/material/colors/deepPurple";
@@ -10,12 +9,12 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { clearFilters } from '../../state/filter/filterSlice';
 import { cancelRecord, deleteMushroom, newRecord } from '../../state/mushroom/mushroomSlice';
 import { RootState } from '../../state/store';
-import FilterDialog from "./FilterDialog";
-import { clearFilters } from '../../state/filter/filterSlice';
-import { Spots } from '../models/enums/Spots';
 import { Color } from '../models/enums/Color';
+import { Spots } from '../models/enums/Spots';
+import FilterDialog from "./FilterDialog";
 
 interface IOuterProps {
     mushroomId: number;
