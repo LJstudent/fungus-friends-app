@@ -91,6 +91,8 @@ function MushroomInfo(props: IOuterProps) {
                 latlng: [parseFloat(lat), parseFloat(lng)],
             };
             dispatch(addMushroom(newRecord));
+
+            alert('New mushroom added');
         }
     };
 

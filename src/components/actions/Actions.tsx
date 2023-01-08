@@ -14,6 +14,8 @@ import { cancelRecord, deleteMushroom, newRecord } from '../../state/mushroom/mu
 import { RootState } from '../../state/store';
 import FilterDialog from "./FilterDialog";
 import { clearFilters } from '../../state/filter/filterSlice';
+import { Spots } from '../models/enums/Spots';
+import { Color } from '../models/enums/Color';
 
 interface IOuterProps {
     mushroomId: number;
@@ -24,6 +26,8 @@ function Actions(props: IOuterProps) {
     const dispatch = useDispatch();
 
     const newRecordBoolean = useSelector((state: RootState) => state.mushroom.newRecord);
+    const filterSpots = useSelector((state: RootState) => state.filter.valueSpots);
+    const filterColor = useSelector((state: RootState) => state.filter.valueColor);
 
     const [ShowFilterDialog, setShowFilterDialog] = React.useState<boolean>(false);
     const [FilterChoice, setFilterChoice] = React.useState<number>(-1);
@@ -48,6 +52,11 @@ function Actions(props: IOuterProps) {
 
     const handleDeleteMushroom = () => {
         dispatch(deleteMushroom(mushroomId));
+        alert('Mushroom deleted');
+    }
+
+    const handleClearFilters = () => {
+        dispatch(clearFilters());
     }
 
     const disableWithoutMushroomId = mushroomId === -1 || newRecordBoolean ? true : false;
@@ -64,6 +73,9 @@ function Actions(props: IOuterProps) {
             </IconButton>
             <IconButton onClick={event => handleShowFilterDialog(1)} disabled={newRecordBoolean && true}>
                 <Avatar sx={{ bgcolor: deepPurple[500] }}>C</Avatar>
+            </IconButton>
+            <IconButton onClick={event => handleClearFilters()} disabled={(newRecordBoolean || (filterSpots === -1 as Spots && filterColor === -1 as Color))  && true}>
+                <CloseIcon />
             </IconButton>
             <Divider orientation="vertical" flexItem />
             {!newRecordBoolean ?
