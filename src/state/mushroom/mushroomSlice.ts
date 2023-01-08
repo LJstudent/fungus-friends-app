@@ -20,6 +20,10 @@ export const mushroomSlice = createSlice({
       state.mushroom.push(action.payload)
       state.newRecord = false
     },
+    deleteMushroom: (state, action: PayloadAction<number>) => {
+      const index = state.mushroom.findIndex(mushroom => mushroom.id === action.payload)
+      state.mushroom.splice(index, 1);
+    },
     newRecord: (state) => {
       state.newRecord = true;
     },
@@ -30,6 +34,6 @@ export const mushroomSlice = createSlice({
 });
 
 
-export const { addMushroom, newRecord, cancelRecord } = mushroomSlice.actions;
+export const { addMushroom, newRecord, cancelRecord, deleteMushroom } = mushroomSlice.actions;
 
 export default mushroomSlice.reducer;

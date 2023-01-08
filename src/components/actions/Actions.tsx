@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { cancelRecord, newRecord } from '../../state/mushroom/mushroomSlice';
+import { cancelRecord, deleteMushroom, newRecord } from '../../state/mushroom/mushroomSlice';
 import { RootState } from '../../state/store';
 import FilterDialog from "./FilterDialog";
 import { clearFilters } from '../../state/filter/filterSlice';
@@ -46,6 +46,10 @@ function Actions(props: IOuterProps) {
         dispatch(cancelRecord());
     };
 
+    const handleDeleteMushroom = () => {
+        dispatch(deleteMushroom(mushroomId));
+    }
+
     const disableWithoutMushroomId = mushroomId === -1 || newRecordBoolean ? true : false;
 
     return (
@@ -71,7 +75,7 @@ function Actions(props: IOuterProps) {
                     <CloseIcon />
                 </IconButton>
             }
-            <IconButton disabled={disableWithoutMushroomId}>
+            <IconButton onClick={event => handleDeleteMushroom()} disabled={disableWithoutMushroomId}>
                 <DeleteIcon />
             </IconButton>
             <IconButton disabled={disableWithoutMushroomId}>
