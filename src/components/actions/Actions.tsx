@@ -90,9 +90,6 @@ function Actions(props: IOuterProps) {
             <IconButton onClick={event => handleDeleteMushroom()} disabled={disableWithoutMushroomId}>
                 <DeleteIcon />
             </IconButton>
-            <IconButton disabled={disableWithoutMushroomId}>
-                <EditIcon />
-            </IconButton>
             <FilterDialog open={ShowFilterDialog} onClose={handleShowFilterDialogClose} filterChoice={FilterChoice} />
         </Stack>
     )
