@@ -21,9 +21,11 @@ interface IOuterProps {
 function FilterDialog(props: IOuterProps) {
     const { open, onClose, filterChoice } = props;
     const dispatch = useDispatch();
+
     const mushroomsList = useSelector((state: RootState) => state.mushroom.mushroom);
     const filterSpotsValue = useSelector((state: RootState) => state.filter.valueSpots);
     const filterColorValue = useSelector((state: RootState) => state.filter.valueColor);
+
     const [RadioValue, setRadioValue] = React.useState<number>(-1);
 
 
@@ -38,6 +40,7 @@ function FilterDialog(props: IOuterProps) {
         if (filterChoice === 1) {
             dispatch(searchFilterColor(RadioValue as Color));
         }
+        setRadioValue(-1);
         onClose();
     }
 

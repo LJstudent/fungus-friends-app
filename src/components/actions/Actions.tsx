@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cancelRecord, newRecord } from '../../state/mushroom/mushroomSlice';
 import { RootState } from '../../state/store';
 import FilterDialog from "./FilterDialog";
+import { clearFilters } from '../../state/filter/filterSlice';
 
 interface IOuterProps {
     mushroomId: number;
@@ -21,7 +22,9 @@ interface IOuterProps {
 function Actions(props: IOuterProps) {
     const { mushroomId } = props;
     const dispatch = useDispatch();
+
     const newRecordBoolean = useSelector((state: RootState) => state.mushroom.newRecord);
+
     const [ShowFilterDialog, setShowFilterDialog] = React.useState<boolean>(false);
     const [FilterChoice, setFilterChoice] = React.useState<number>(-1);
 
@@ -36,6 +39,7 @@ function Actions(props: IOuterProps) {
 
     const handleNewMushroom = () => {
         dispatch(newRecord());
+        dispatch(clearFilters());
     };
 
     const handleCancelMushroom = () => {
@@ -51,10 +55,10 @@ function Actions(props: IOuterProps) {
             alignItems="center"
             spacing={2}
         >
-            <IconButton onClick={event => handleShowFilterDialog(0)}>
+            <IconButton onClick={event => handleShowFilterDialog(0)} disabled={newRecordBoolean && true}>
                 <Avatar sx={{ bgcolor: deepOrange[500] }}>S</Avatar>
             </IconButton>
-            <IconButton onClick={event => handleShowFilterDialog(1)}>
+            <IconButton onClick={event => handleShowFilterDialog(1)} disabled={newRecordBoolean && true}>
                 <Avatar sx={{ bgcolor: deepPurple[500] }}>C</Avatar>
             </IconButton>
             <Divider orientation="vertical" flexItem />

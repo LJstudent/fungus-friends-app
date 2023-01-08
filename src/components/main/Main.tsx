@@ -21,6 +21,7 @@ function Main() {
     const filterSpots = useSelector((state: RootState) => state.filter.valueSpots);
     const filterColor = useSelector((state: RootState) => state.filter.valueColor);
     const mushroomsList = useSelector((state: RootState) => state.mushroom.mushroom);
+    const newRecordBoolean = useSelector((state: RootState) => state.mushroom.newRecord);
 
     const [MushroomId, setMushroomId] = React.useState<number>(-1);
     const prevAmount = usePrevious({ filterSpots, filterColor });
@@ -41,16 +42,16 @@ function Main() {
         }
     }, [filterSpots, filterColor, prevAmount])
 
-    if (filterSpots !== -1 as Spots) {
+    if (filterSpots !== -1 as Spots && !newRecordBoolean) {
         result = mushroomsList.filter(mushroom => mushroom.spots === filterSpots);
 
     }
 
-    if (filterColor !== -1 as Color) {
+    if (filterColor !== -1 as Color && !newRecordBoolean) {
         result = mushroomsList.filter(mushroom => mushroom.color === filterColor);
     }
 
-    if (filterSpots !== -1 as Spots && filterColor !== -1 as Color) {
+    if (filterSpots !== -1 as Spots && filterColor !== -1 as Color && !newRecordBoolean) {
         result = mushroomsList.filter(mushroom => (mushroom.spots === filterSpots && mushroom.color === filterColor));
     }
 
