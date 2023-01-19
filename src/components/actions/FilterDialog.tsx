@@ -45,7 +45,13 @@ function FilterDialog(props: IOuterProps) {
     }
 
     function filterColor() {
-        const uniqueColorList = mushroomsList.map(mushroom => mushroom.color).filter((v, i, a) => a.indexOf(v) === i);
+        let uniqueColorList = []
+        uniqueColorList = mushroomsList.map(mushroom => mushroom.color).filter((v, i, a) => a.indexOf(v) === i);
+
+        if(filterSpotsValue !== -1 as Spots) {
+        const list = mushroomsList.filter(mushroom => mushroom.spots === filterSpotsValue)
+        uniqueColorList = list.map(mushroom => mushroom.color).filter((v, i, a) => a.indexOf(v) === i);
+        }
 
         return (
             <FormControl className="FilterFormColor">
@@ -69,7 +75,13 @@ function FilterDialog(props: IOuterProps) {
     }
 
     function filterSpots() {
-        const uniqueSpotsList = mushroomsList.map(mushroom => mushroom.spots).filter((v, i, a) => a.indexOf(v) === i);
+        let uniqueSpotsList = []
+        uniqueSpotsList = mushroomsList.map(mushroom => mushroom.spots).filter((v, i, a) => a.indexOf(v) === i);
+
+        if(filterColorValue !== -1 as Color) {
+            const list = mushroomsList.filter(mushroom => mushroom.color === filterColorValue)
+            uniqueSpotsList = list.map(mushroom => mushroom.spots).filter((v, i, a) => a.indexOf(v) === i);
+        }
 
         return (
             <FormControl className="FilterFormColor">
